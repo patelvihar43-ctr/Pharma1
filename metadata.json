@@ -1,0 +1,5 @@
+{
+  "name": "PharmaFlow IT Request System",
+  "description": "A 21 CFR Part 11 compliant IT user request management system for the pharmaceutical sector, featuring dynamic forms and a multi-stage approval workflow.",
+  "requestFramePermissions": []
+}

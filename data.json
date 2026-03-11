@@ -1,0 +1,387 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "emp1",
+      "password": "pass123",
+      "full_name": "John Doe",
+      "employee_id": "EMP001",
+      "department": "Production",
+      "designation": "Officer",
+      "ext_no": "101",
+      "role": "EMPLOYEE"
+    },
+    {
+      "id": 2,
+      "username": "hod1",
+      "password": "pass123",
+      "full_name": "Robert Smith",
+      "employee_id": "HOD001",
+      "department": "Production",
+      "designation": "Manager",
+      "ext_no": "201",
+      "role": "HOD"
+    },
+    {
+      "id": 3,
+      "username": "qa1",
+      "password": "pass123",
+      "full_name": "Alice Johnson",
+      "employee_id": "QA001",
+      "department": "Quality Assurance",
+      "designation": "QA Lead",
+      "ext_no": "301",
+      "role": "QA"
+    },
+    {
+      "id": 4,
+      "username": "it1",
+      "password": "pass123",
+      "full_name": "Mike Wilson",
+      "employee_id": "IT001",
+      "department": "IT",
+      "designation": "System Admin",
+      "ext_no": "401",
+      "role": "IT_ADMIN"
+    },
+    {
+      "id": 5,
+      "username": "admin",
+      "password": "admin123",
+      "full_name": "Super Admin",
+      "employee_id": "ADM001",
+      "department": "IT",
+      "designation": "IT Head",
+      "ext_no": "999",
+      "role": "SUPER_ADMIN"
+    }
+  ],
+  "requests": [
+    {
+      "id": 100,
+      "user_id": 1,
+      "category": "INSTRUMENT",
+      "status": "COMPLETED",
+      "form_data": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"employeeCode\":\"EMP001\",\"designation\":\"Officer\",\"department\":\"Production\",\"extNo\":\"101\",\"empStatus\":\"Temporary\",\"expiryDate\":\"2026-03-15\",\"instrumentId\":\"HPLC-01\",\"softwareName\":\"SAP S/4HANA\",\"accessLevel\":\"Operator\",\"requestType\":\"Create\",\"systemType\":\"Single Type\"}",
+      "submission_date": "2026-03-01T10:00:00.000Z",
+      "last_updated": "2026-03-01T12:00:00.000Z",
+      "it_closure_data": "{\"authProvided\":\"Yes\",\"loginId\":\"jdoe01\",\"remarks\":\"Account created\"}"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": 1,
+      "request_id": 100,
+      "user_id": 0,
+      "action": "EXPIRY_NOTIFICATION_SENT",
+      "timestamp": "2026-03-11T06:56:08.745Z",
+      "ip_address": "SYSTEM",
+      "details": "Expiry notifications sent for Request #100 to owner, employees, and IT."
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T06:56:43.125Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SPAN.text-sm.font-medium with text \"New Request\" at /",
+      "path": "/",
+      "element": "SPAN.text-sm.font-medium"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T06:56:45.310Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SPAN.text-sm.font-medium with text \"New Request\" at /",
+      "path": "/",
+      "element": "SPAN.text-sm.font-medium"
+    },
+    {
+      "id": 4,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:04:49.849Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SPAN.text-sm.font-medium with text \"New Request\" at /",
+      "path": "/",
+      "element": "SPAN.text-sm.font-medium"
+    },
+    {
+      "id": 5,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:04:52.872Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SPAN.text-sm.font-medium with text \"New Request\" at /",
+      "path": "/",
+      "element": "SPAN.text-sm.font-medium"
+    },
+    {
+      "id": 6,
+      "user_id": 1,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-11T07:19:38.634Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 7,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:19:38.715Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SPAN.text-sm.font-medium with text \"Sign Out\" at /",
+      "path": "/",
+      "element": "SPAN.text-sm.font-medium"
+    },
+    {
+      "id": 8,
+      "user_id": 2,
+      "action": "LOGIN",
+      "timestamp": "2026-03-11T07:19:53.202Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 9,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:19:57.025Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100 with text \"Pending Approvals\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100"
+    },
+    {
+      "id": 10,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:19:58.592Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100 with text \"Pending Approvals\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100"
+    },
+    {
+      "id": 11,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:19:59.886Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100 with text \"Pending Approvals\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100"
+    },
+    {
+      "id": 12,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:20:03.578Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100 with text \"Pending Approvals\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100"
+    },
+    {
+      "id": 13,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:20:08.049Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100 with text \"Pending Approvals\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.transition-all.duration-200.bg-emerald-50.text-emerald-600.border.border-emerald-100"
+    },
+    {
+      "id": 14,
+      "user_id": 2,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-11T07:26:10.754Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 15,
+      "user_id": 2,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:26:10.764Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.text-red-500.hover:bg-red-50.transition-colors with text \"Sign Out\" at /",
+      "path": "/",
+      "element": "BUTTON.w-full.flex.items-center.gap-3.px-4.py-3.rounded-xl.text-red-500.hover:bg-red-50.transition-colors"
+    },
+    {
+      "id": 16,
+      "user_id": 1,
+      "action": "LOGIN",
+      "timestamp": "2026-03-11T07:26:24.952Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 17,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:26:38.295Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20 with text \"All Actions\nLogins\nLogouts\nClicks\nSubmissions\nHOD \" at /",
+      "path": "/",
+      "element": "SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20"
+    },
+    {
+      "id": 18,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:26:39.158Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on P.text-xs.font-bold.text-black/40.uppercase.tracking-tight with text \"PENDING ACTION\" at /",
+      "path": "/",
+      "element": "P.text-xs.font-bold.text-black/40.uppercase.tracking-tight"
+    },
+    {
+      "id": 19,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:26:42.290Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20 with text \"All Actions\nLogins\nLogouts\nClicks\nSubmissions\nHOD \" at /",
+      "path": "/",
+      "element": "SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20"
+    },
+    {
+      "id": 20,
+      "user_id": 1,
+      "action": "CLICK",
+      "timestamp": "2026-03-11T07:30:53.799Z",
+      "ip_address": "127.0.0.1",
+      "details": "Clicked on SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20 with text \"All Actions\nLogins\nLogouts\nClicks\nSubmissions\nHOD \" at /",
+      "path": "/",
+      "element": "SELECT.bg-black/5.border-none.rounded-xl.px-4.py-2.text-xs.font-bold.focus:ring-2.focus:ring-emerald-500/20"
+    },
+    {
+      "id": 21,
+      "user_id": 1,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-11T07:31:20.293Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 22,
+      "user_id": 1,
+      "action": "LOGIN",
+      "timestamp": "2026-03-11T07:31:35.394Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    }
+  ],
+  "master_data": [
+    {
+      "id": 1,
+      "type": "SOFTWARE",
+      "value": "SAP S/4HANA"
+    },
+    {
+      "id": 2,
+      "type": "SOFTWARE",
+      "value": "LIMS"
+    },
+    {
+      "id": 3,
+      "type": "SOFTWARE",
+      "value": "Empower 3"
+    },
+    {
+      "id": 4,
+      "type": "SOFTWARE",
+      "value": "Chromeleon"
+    },
+    {
+      "id": 5,
+      "type": "INSTRUMENT",
+      "value": "HPLC-01"
+    },
+    {
+      "id": 6,
+      "type": "INSTRUMENT",
+      "value": "GC-05"
+    },
+    {
+      "id": 7,
+      "type": "INSTRUMENT",
+      "value": "UV-02"
+    },
+    {
+      "id": 8,
+      "type": "INSTRUMENT",
+      "value": "FTIR-01"
+    },
+    {
+      "id": 9,
+      "type": "DEPARTMENT",
+      "value": "Production"
+    },
+    {
+      "id": 10,
+      "type": "DEPARTMENT",
+      "value": "QA"
+    },
+    {
+      "id": 11,
+      "type": "DEPARTMENT",
+      "value": "QC"
+    },
+    {
+      "id": 12,
+      "type": "DEPARTMENT",
+      "value": "R&D"
+    },
+    {
+      "id": 13,
+      "type": "DEPARTMENT",
+      "value": "IT"
+    },
+    {
+      "id": 14,
+      "type": "DEPARTMENT",
+      "value": "HR"
+    }
+  ],
+  "user_hod_mapping": [
+    {
+      "employee_id": 1,
+      "hod_id": 2
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Your temporary account for INSTRUMENT (Request #100) will expire in 4 days on 2026-03-15.",
+      "timestamp": "2026-03-11T06:56:08.744Z",
+      "read": false
+    },
+    {
+      "id": 2,
+      "user_id": 4,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Temporary account for John Doe (INSTRUMENT, Request #100) will expire in 4 days on 2026-03-15.",
+      "timestamp": "2026-03-11T06:56:08.745Z",
+      "read": false
+    },
+    {
+      "id": 3,
+      "user_id": 5,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Temporary account for John Doe (INSTRUMENT, Request #100) will expire in 4 days on 2026-03-15.",
+      "timestamp": "2026-03-11T06:56:08.745Z",
+      "read": false
+    }
+  ]
+}
