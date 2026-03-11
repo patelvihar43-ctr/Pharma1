@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_FILE = path.join(process.cwd(), 'data.json');
+const DATA_FILE = path.join(__dirname, 'data.json');
 
 // Initial data to use as fallback
 const getInitialData = () => ({
@@ -620,4 +620,13 @@ async function startServer() {
   }
 }
 
-startServer();
+
+// Vercel sets the 'VERCEL' environment variable automatically
+if (!process.env.VERCEL) {
+  startServer().catch(err => {
+    console.error("Failed to start server:", err);
+  });
+}
+
+// Vercel needs this to know which Express app to use
+export default app;
