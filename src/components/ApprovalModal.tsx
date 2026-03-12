@@ -21,7 +21,7 @@ export default function ApprovalModal({
   reason,
   setReason
 }: ApprovalModalProps) {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('pass123');
   const [error, setError] = useState('');
 
   const handleConfirm = () => {

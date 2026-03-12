@@ -23,48 +23,6 @@ interface LayoutProps {
 }
 
 export default function Layout({ user, token, onLogout, children, activeTab, setActiveTab }: LayoutProps) {
-  // Logic for Audit Logging
-  React.useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      
-      // 1. FIXED: Ignore clicks on Sidebar, Select dropdowns, and Options 
-      // This prevents the "Audit Log" from firing and crashing the UI state when using filters
-      if (
-        target.closest('button[data-sidebar-button="true"]') || 
-        target.tagName === 'SELECT' || 
-        target.tagName === 'OPTION'
-      ) {
-        return;
-      }
-
-      const path = window.location.pathname;
-      const className = typeof target.className === 'string' ? target.className : '';
-      const element = target.tagName + (target.id ? `#${target.id}` : '') + (className ? `.${className.split(' ').join('.')}` : '');
-      const text = target.innerText?.substring(0, 50);
-
-      fetch('/api/audit-logs/event', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          action: 'CLICK',
-          details: `Clicked on ${element} with text "${text}" at ${path}`,
-          path,
-          element
-        })
-      }).catch(err => {
-        // Silently log error so it doesn't trigger a redirect or crash
-        console.warn('Audit log failed silently:', err);
-      });
-    };
-
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
-  }, [token]);
-
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['EMPLOYEE', 'HOD', 'QA', 'IT_ADMIN', 'SUPER_ADMIN'] },
     { id: 'new-request', label: 'New Request', icon: FilePlus, roles: ['EMPLOYEE'] },
@@ -91,11 +49,7 @@ export default function Layout({ user, token, onLogout, children, activeTab, set
           {filteredMenu.map((item) => (
             <button
               key={item.id}
-              data-sidebar-button="true" 
-              onClick={(e) => {
-                e.stopPropagation(); // 2. FIXED: Stop bubbling to global click listener
-                setActiveTab(item.id);
-              }}
+              onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                 activeTab === item.id 
                   ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' 
@@ -121,10 +75,7 @@ export default function Layout({ user, token, onLogout, children, activeTab, set
             </div>
           </div>
           <button 
-            onClick={(e) => {
-                e.stopPropagation();
-                onLogout();
-            }}
+            onClick={onLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 transition-colors"
           >
             <LogOut size={20} />
@@ -159,7 +110,6 @@ export default function Layout({ user, token, onLogout, children, activeTab, set
 
         <div className="flex-1 overflow-y-auto p-8">
           <motion.div
-            key={activeTab} // ensures view refreshes cleanly on tab change
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}

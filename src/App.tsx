@@ -23,7 +23,12 @@ import { motion, AnimatePresence } from 'motion/react';
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('pharma_token'));
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState(localStorage.getItem('pharma_active_tab') || 'dashboard');
+
+  useEffect(() => {
+    localStorage.setItem('pharma_active_tab', activeTab);
+  }, [activeTab]);
+
   const [selectedRequest, setSelectedRequest] = useState<ITRequest | null>(null);
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [loginError, setLoginError] = useState('');
@@ -350,10 +355,12 @@ export default function App() {
                     <p className="text-[10px] uppercase font-bold text-black/40">Request Type</p>
                     <p className="text-sm font-bold text-emerald-600">{formData.requestType}</p>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-[10px] uppercase font-bold text-black/40">System Type</p>
-                    <p className="text-sm font-bold text-emerald-600">{formData.systemType || 'Single Type'}</p>
-                  </div>
+                  {formData.systemType && (
+                    <div className="space-y-1">
+                      <p className="text-[10px] uppercase font-bold text-black/40">System Type</p>
+                      <p className="text-sm font-bold text-emerald-600">{formData.systemType}</p>
+                    </div>
+                  )}
                 </div>
               </section>
 
@@ -363,7 +370,7 @@ export default function App() {
                 </h3>
                 <div className="grid grid-cols-2 gap-10">
                   {Object.entries(formData).map(([key, val]: any) => {
-                    if (['firstName', 'lastName', 'designation', 'employeeCode', 'department', 'extNo', 'requestType', 'systemType', 'dynamicRows'].includes(key)) return null;
+                    if (['firstName', 'lastName', 'designation', 'employeeCode', 'department', 'extNo', 'requestType', 'systemType', 'dynamicRows', 'instrumentRows'].includes(key)) return null;
                     return (
                       <div key={key} className="space-y-1">
                         <p className="text-[10px] uppercase font-bold text-black/40">{key.replace(/([A-Z])/g, ' $1').toUpperCase()}</p>
@@ -374,6 +381,7 @@ export default function App() {
                 </div>
                 {formData.dynamicRows && formData.dynamicRows.length > 0 && (
                   <div className="mt-8 bg-[#F9F9F9] rounded-3xl p-6 border border-black/5">
+                    <h4 className="text-[10px] uppercase font-bold text-black/40 mb-4 tracking-widest">Dynamic Entries</h4>
                     <table className="w-full">
                       <thead>
                         <tr className="text-left border-b border-black/10">
@@ -392,6 +400,31 @@ export default function App() {
                                   v}
                               </td>
                             ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {formData.instrumentRows && formData.instrumentRows.length > 0 && (
+                  <div className="mt-8 bg-[#F9F9F9] rounded-3xl p-6 border border-black/5">
+                    <h4 className="text-[10px] uppercase font-bold text-black/40 mb-4 tracking-widest">Instrument Entries</h4>
+                    <table className="w-full">
+                      <thead>
+                        <tr className="text-left border-b border-black/10">
+                          <th className="py-3 text-[10px] uppercase font-bold text-black/40">Software Name</th>
+                          <th className="py-3 text-[10px] uppercase font-bold text-black/40">Instrument ID</th>
+                          <th className="py-3 text-[10px] uppercase font-bold text-black/40">Access Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {formData.instrumentRows.map((row: any, i: number) => (
+                          <tr key={i} className="border-b border-black/5 last:border-0">
+                            <td className="py-4 text-xs font-bold text-black/80">{row.softwareName}</td>
+                            <td className="py-4 text-xs font-bold text-black/80">{row.instrumentId}</td>
+                            <td className="py-4 text-xs font-bold text-black/80">
+                              {Object.entries(row.accessLevel).filter(([_, val]) => val).map(([key]) => key).join(', ').toUpperCase()}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

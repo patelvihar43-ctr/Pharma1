@@ -262,12 +262,14 @@ export default function AdminPanel({ token, user, initialTab }: AdminPanelProps)
                   <option value="ALL">All Actions</option>
                   <option value="LOGIN">Logins</option>
                   <option value="LOGOUT">Logouts</option>
-                  <option value="CLICK">Clicks</option>
-                  <option value="SUBMITTED">Submissions</option>
-                  <option value="HOD_APPROVED">HOD Approvals</option>
-                  <option value="QA_APPROVED">QA Approvals</option>
-                  <option value="IT_ADMIN_APPROVED">IT Approvals</option>
-                  <option value="REJECTED">Rejections</option>
+                  <option value="SUBMISSION">Submissions</option>
+                  <option value="CREATE">Create</option>
+                  <option value="MODIFY">Modify</option>
+                  <option value="DEACTIVATE">Deactivate</option>
+                  <option value="HOD_APPROVAL">HOD Approvals</option>
+                  <option value="QA_APPROVAL">QA Approvals</option>
+                  <option value="IT_APPROVAL">IT Approvals</option>
+                  <option value="REJECTION">Rejections</option>
                 </select>
               </div>
               <div className="flex items-center gap-2 text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-100">
@@ -288,7 +290,10 @@ export default function AdminPanel({ token, user, initialTab }: AdminPanelProps)
                 </thead>
                 <tbody className="divide-y divide-black/5">
                   {(() => {
-                    const filteredLogs = auditLogs.filter(log => auditFilter === 'ALL' || log.action.includes(auditFilter));
+                    const filteredLogs = auditLogs.filter(log => {
+                      if (log.action === 'CLICK') return false;
+                      return auditFilter === 'ALL' || log.action === auditFilter;
+                    });
                     const totalPages = Math.ceil(filteredLogs.length / itemsPerPage);
                     const startIndex = (currentPage - 1) * itemsPerPage;
                     const paginatedLogs = filteredLogs.slice(startIndex, startIndex + itemsPerPage);

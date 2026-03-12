@@ -1,0 +1,339 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "emp1",
+      "password": "pass123",
+      "full_name": "John Doe",
+      "employee_id": "EMP001",
+      "department": "Production",
+      "designation": "Officer",
+      "ext_no": "101",
+      "role": "EMPLOYEE"
+    },
+    {
+      "id": 2,
+      "username": "hod1",
+      "password": "pass123",
+      "full_name": "Robert Smith",
+      "employee_id": "HOD001",
+      "department": "Production",
+      "designation": "Manager",
+      "ext_no": "201",
+      "role": "HOD"
+    },
+    {
+      "id": 3,
+      "username": "qa1",
+      "password": "pass123",
+      "full_name": "Alice Johnson",
+      "employee_id": "QA001",
+      "department": "Quality Assurance",
+      "designation": "QA Lead",
+      "ext_no": "301",
+      "role": "QA"
+    },
+    {
+      "id": 4,
+      "username": "it1",
+      "password": "pass123",
+      "full_name": "Mike Wilson",
+      "employee_id": "IT001",
+      "department": "IT",
+      "designation": "System Admin",
+      "ext_no": "401",
+      "role": "IT_ADMIN"
+    },
+    {
+      "id": 5,
+      "username": "admin",
+      "password": "admin123",
+      "full_name": "Super Admin",
+      "employee_id": "ADM001",
+      "department": "IT",
+      "designation": "IT Head",
+      "ext_no": "999",
+      "role": "SUPER_ADMIN"
+    }
+  ],
+  "requests": [
+    {
+      "id": 100,
+      "user_id": 1,
+      "category": "INSTRUMENT",
+      "status": "COMPLETED",
+      "form_data": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"employeeCode\":\"EMP001\",\"designation\":\"Officer\",\"department\":\"Production\",\"extNo\":\"101\",\"empStatus\":\"Temporary\",\"expiryDate\":\"2026-03-15\",\"instrumentId\":\"HPLC-01\",\"softwareName\":\"SAP S/4HANA\",\"accessLevel\":\"Operator\",\"requestType\":\"Create\",\"systemType\":\"Single Type\"}",
+      "submission_date": "2026-03-01T10:00:00.000Z",
+      "last_updated": "2026-03-01T12:00:00.000Z",
+      "it_closure_data": "{\"authProvided\":\"Yes\",\"loginId\":\"jdoe01\",\"remarks\":\"Account created\"}"
+    },
+    {
+      "id": 101,
+      "user_id": 1,
+      "category": "SAP",
+      "status": "APPROVED_PENDING_QA",
+      "form_data": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"designation\":\"Officer\",\"employeeCode\":\"EMP001\",\"department\":\"Production\",\"extNo\":\"101\",\"username\":\"emp1\",\"employmentStatus\":\"Permanent\",\"contractEndDate\":\"\",\"requestType\":\"Create\",\"systemType\":\"Single Type\",\"dynamicRows\":[],\"instrumentRows\":[]}",
+      "submission_date": "2026-03-12T09:41:41.906Z",
+      "last_updated": "2026-03-12T09:42:03.628Z"
+    },
+    {
+      "id": 102,
+      "user_id": 1,
+      "category": "INSTRUMENT",
+      "status": "APPROVED_PENDING_QA",
+      "form_data": "{\"firstName\":\"John\",\"lastName\":\"Doe\",\"designation\":\"Officer\",\"employeeCode\":\"EMP001\",\"department\":\"Production\",\"extNo\":\"101\",\"username\":\"emp1\",\"employmentStatus\":\"Permanent\",\"contractEndDate\":\"\",\"requestType\":\"Create\",\"systemType\":\"Multi-System\",\"dynamicRows\":[],\"instrumentRows\":[{\"instrumentId\":\"GC-05\",\"softwareName\":\"SAP S/4HANA\",\"accessLevel\":\"fseafd\"},{\"instrumentId\":\"UV-02\",\"softwareName\":\"LIMS\",\"accessLevel\":\"gbrefrgef\"}]}",
+      "submission_date": "2026-03-12T09:45:32.568Z",
+      "last_updated": "2026-03-12T09:46:04.596Z"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": 1,
+      "request_id": 100,
+      "user_id": 0,
+      "action": "EXPIRY_NOTIFICATION_SENT",
+      "timestamp": "2026-03-12T09:40:30.099Z",
+      "ip_address": "SYSTEM",
+      "details": "Expiry notifications sent for Request #100 to owner, employees, and IT."
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "action": "LOGIN",
+      "timestamp": "2026-03-12T09:41:11.614Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 3,
+      "request_id": 101,
+      "user_id": 1,
+      "action": "SUBMISSION",
+      "timestamp": "2026-03-12T09:41:41.906Z",
+      "ip_address": "127.0.0.1",
+      "details": "CREATE request submitted"
+    },
+    {
+      "id": 4,
+      "request_id": 101,
+      "user_id": 1,
+      "action": "CREATE",
+      "timestamp": "2026-03-12T09:41:41.907Z",
+      "ip_address": "127.0.0.1",
+      "details": "CREATE action initiated"
+    },
+    {
+      "id": 5,
+      "user_id": 1,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-12T09:41:44.758Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 6,
+      "user_id": 2,
+      "action": "LOGIN",
+      "timestamp": "2026-03-12T09:41:55.613Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 7,
+      "request_id": 101,
+      "user_id": 2,
+      "action": "HOD_APPROVAL",
+      "timestamp": "2026-03-12T09:42:03.628Z",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "id": 8,
+      "user_id": 2,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-12T09:42:12.758Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 9,
+      "user_id": 1,
+      "action": "LOGIN",
+      "timestamp": "2026-03-12T09:42:21.730Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 10,
+      "user_id": 1,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-12T09:44:47.500Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 11,
+      "user_id": 1,
+      "action": "LOGIN",
+      "timestamp": "2026-03-12T09:44:59.254Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 12,
+      "request_id": 102,
+      "user_id": 1,
+      "action": "SUBMISSION",
+      "timestamp": "2026-03-12T09:45:32.568Z",
+      "ip_address": "127.0.0.1",
+      "details": "CREATE request submitted"
+    },
+    {
+      "id": 13,
+      "request_id": 102,
+      "user_id": 1,
+      "action": "CREATE",
+      "timestamp": "2026-03-12T09:45:32.569Z",
+      "ip_address": "127.0.0.1",
+      "details": "CREATE action initiated"
+    },
+    {
+      "id": 14,
+      "user_id": 1,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-12T09:45:34.896Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    },
+    {
+      "id": 15,
+      "user_id": 2,
+      "action": "LOGIN",
+      "timestamp": "2026-03-12T09:45:57.920Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged in"
+    },
+    {
+      "id": 16,
+      "request_id": 102,
+      "user_id": 2,
+      "action": "HOD_APPROVAL",
+      "timestamp": "2026-03-12T09:46:04.596Z",
+      "ip_address": "127.0.0.1"
+    },
+    {
+      "id": 17,
+      "user_id": 2,
+      "action": "LOGOUT",
+      "timestamp": "2026-03-12T09:46:16.815Z",
+      "ip_address": "127.0.0.1",
+      "details": "User logged out"
+    }
+  ],
+  "master_data": [
+    {
+      "id": 1,
+      "type": "SOFTWARE",
+      "value": "SAP S/4HANA"
+    },
+    {
+      "id": 2,
+      "type": "SOFTWARE",
+      "value": "LIMS"
+    },
+    {
+      "id": 3,
+      "type": "SOFTWARE",
+      "value": "Empower 3"
+    },
+    {
+      "id": 4,
+      "type": "SOFTWARE",
+      "value": "Chromeleon"
+    },
+    {
+      "id": 5,
+      "type": "INSTRUMENT",
+      "value": "HPLC-01"
+    },
+    {
+      "id": 6,
+      "type": "INSTRUMENT",
+      "value": "GC-05"
+    },
+    {
+      "id": 7,
+      "type": "INSTRUMENT",
+      "value": "UV-02"
+    },
+    {
+      "id": 8,
+      "type": "INSTRUMENT",
+      "value": "FTIR-01"
+    },
+    {
+      "id": 9,
+      "type": "DEPARTMENT",
+      "value": "Production"
+    },
+    {
+      "id": 10,
+      "type": "DEPARTMENT",
+      "value": "QA"
+    },
+    {
+      "id": 11,
+      "type": "DEPARTMENT",
+      "value": "QC"
+    },
+    {
+      "id": 12,
+      "type": "DEPARTMENT",
+      "value": "R&D"
+    },
+    {
+      "id": 13,
+      "type": "DEPARTMENT",
+      "value": "IT"
+    },
+    {
+      "id": 14,
+      "type": "DEPARTMENT",
+      "value": "HR"
+    }
+  ],
+  "user_hod_mapping": [
+    {
+      "employee_id": 1,
+      "hod_id": 2
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Your temporary account for INSTRUMENT (Request #100) will expire in 3 days on 2026-03-15.",
+      "timestamp": "2026-03-12T09:40:30.097Z",
+      "read": false
+    },
+    {
+      "id": 2,
+      "user_id": 4,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Temporary account for John Doe (INSTRUMENT, Request #100) will expire in 3 days on 2026-03-15.",
+      "timestamp": "2026-03-12T09:40:30.099Z",
+      "read": false
+    },
+    {
+      "id": 3,
+      "user_id": 5,
+      "request_id": 100,
+      "type": "EXPIRY_WARNING",
+      "message": "Temporary account for John Doe (INSTRUMENT, Request #100) will expire in 3 days on 2026-03-15.",
+      "timestamp": "2026-03-12T09:40:30.099Z",
+      "read": false
+    }
+  ]
+}

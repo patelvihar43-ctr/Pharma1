@@ -25,6 +25,7 @@ export default function DynamicForm({ user, token, onSubmit }: DynamicFormProps)
   });
   const [masterData, setMasterData] = useState<MasterData[]>([]);
   const [dynamicRows, setDynamicRows] = useState<any[]>([]);
+  const [instrumentRows, setInstrumentRows] = useState<any[]>([]);
 
   useEffect(() => {
     // Pre-fill with user data but allow manual editing
@@ -53,18 +54,24 @@ export default function DynamicForm({ user, token, onSubmit }: DynamicFormProps)
       setDynamicRows([...dynamicRows, { srNo: dynamicRows.length + 1, roleName: '', rights: { create: false, change: false, display: true } }]);
     } else if (category === 'GENERAL') {
       setDynamicRows([...dynamicRows, { drive: '', folders: '', permissions: 'Read' }]);
+    } else if (category === 'INSTRUMENT' && systemType === 'Multi-System') {
+      setInstrumentRows([...instrumentRows, { instrumentId: '', softwareName: '', accessLevel: '' }]);
     }
   };
 
   const handleRemoveRow = (index: number) => {
-    setDynamicRows(dynamicRows.filter((_, i) => i !== index).map((row, i) => category === 'SAP' ? { ...row, srNo: i + 1 } : row));
+    if (category === 'INSTRUMENT' && systemType === 'Multi-System') {
+      setInstrumentRows(instrumentRows.filter((_, i) => i !== index));
+    } else {
+      setDynamicRows(dynamicRows.filter((_, i) => i !== index).map((row, i) => category === 'SAP' ? { ...row, srNo: i + 1 } : row));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // For Password category, we don't have a specific requestType in the PDF, but we'll use 'Service Request'
     const finalRequestType = category === 'PASSWORD' ? 'Service Request' : requestType;
-    onSubmit(category, { ...formData, requestType: finalRequestType, systemType, dynamicRows });
+    onSubmit(category, { ...formData, requestType: finalRequestType, systemType, dynamicRows, instrumentRows });
   };
 
   const renderCategoryFields = () => {
@@ -259,27 +266,88 @@ export default function DynamicForm({ user, token, onSubmit }: DynamicFormProps)
               <p className="text-[9px] text-black/40 italic">Note:- Training record/module number applicable for create/modify only.</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-bold text-black/40">Instrument/Equipment ID</label>
-                <select value={formData.instrumentId || ''} onChange={e => setFormData({...formData, instrumentId: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm">
-                  <option value="">Select Instrument</option>
-                  {masterData.filter(d => d.type === 'INSTRUMENT').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
-                </select>
-              </div>
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-bold text-black/40">Software/Application Name</label>
-                <select value={formData.softwareName || ''} onChange={e => setFormData({...formData, softwareName: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm">
-                  <option value="">Select Software</option>
-                  {masterData.filter(d => d.type === 'SOFTWARE').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
-                </select>
-              </div>
-            </div>
+            {systemType === 'Single Type' ? (
+              <>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <label className="text-[10px] uppercase font-bold text-black/40">Software/Application Name</label>
+                    <select value={formData.softwareName || ''} onChange={e => setFormData({...formData, softwareName: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm">
+                      <option value="">Select Software</option>
+                      {masterData.filter(d => d.type === 'SOFTWARE').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] uppercase font-bold text-black/40">Instrument/Equipment ID</label>
+                    <select value={formData.instrumentId || ''} onChange={e => setFormData({...formData, instrumentId: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm">
+                      <option value="">Select Instrument</option>
+                      {masterData.filter(d => d.type === 'INSTRUMENT').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
+                    </select>
+                  </div>
+                </div>
 
-            <div className="space-y-1">
-              <label className="text-[10px] uppercase font-bold text-black/40">User Access Role/Level</label>
-              <input type="text" value={formData.accessLevel || ''} onChange={e => setFormData({...formData, accessLevel: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm" required />
-            </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase font-bold text-black/40">User Access Role/Level</label>
+                  <input type="text" value={formData.accessLevel || ''} onChange={e => setFormData({...formData, accessLevel: e.target.value})} className="w-full bg-[#F9F9F9] border border-black/5 rounded-xl px-4 py-2 text-sm" required />
+                </div>
+              </>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold uppercase tracking-tight text-black/60">Multiple Instruments Access</h3>
+                  <button type="button" onClick={handleAddRow} className="flex items-center gap-2 text-xs font-bold text-emerald-600">
+                    <Plus size={14} /> Add Instrument
+                  </button>
+                </div>
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="text-left border-b border-black/5">
+                      <th className="py-2 text-[10px] uppercase tracking-widest text-black/40">Software Name</th>
+                      <th className="py-2 text-[10px] uppercase tracking-widest text-black/40">Instrument ID</th>
+                      <th className="py-2 text-[10px] uppercase tracking-widest text-black/40">Access Level</th>
+                      <th className="py-2 w-10"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-black/5">
+                    {instrumentRows.map((row, idx) => (
+                      <tr key={idx}>
+                        <td className="py-3 pr-4">
+                          <select value={row.softwareName} onChange={e => {
+                            const newRows = [...instrumentRows];
+                            newRows[idx].softwareName = e.target.value;
+                            setInstrumentRows(newRows);
+                          }} className="w-full bg-[#F9F9F9] border border-black/5 rounded-lg px-3 py-2 text-sm">
+                            <option value="">Select Software</option>
+                            {masterData.filter(d => d.type === 'SOFTWARE').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
+                          </select>
+                        </td>
+                        <td className="py-3 pr-4">
+                          <select value={row.instrumentId} onChange={e => {
+                            const newRows = [...instrumentRows];
+                            newRows[idx].instrumentId = e.target.value;
+                            setInstrumentRows(newRows);
+                          }} className="w-full bg-[#F9F9F9] border border-black/5 rounded-lg px-3 py-2 text-sm">
+                            <option value="">Select Instrument</option>
+                            {masterData.filter(d => d.type === 'INSTRUMENT').map(d => <option key={d.id} value={d.value}>{d.value}</option>)}
+                          </select>
+                        </td>
+                        <td className="py-3 pr-4">
+                          <input type="text" value={row.accessLevel} onChange={e => {
+                            const newRows = [...instrumentRows];
+                            newRows[idx].accessLevel = e.target.value;
+                            setInstrumentRows(newRows);
+                          }} className="w-full bg-[#F9F9F9] border border-black/5 rounded-lg px-3 py-2 text-sm" placeholder="Level" />
+                        </td>
+                        <td className="py-3 text-right">
+                          <button type="button" onClick={() => handleRemoveRow(idx)} className="text-red-400 hover:text-red-600">
+                            <Trash2 size={16} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         );
 
@@ -582,24 +650,29 @@ export default function DynamicForm({ user, token, onSubmit }: DynamicFormProps)
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-[10px] uppercase font-bold text-black/40">System Type</label>
-            <div className="flex gap-4">
-              {['Single Type', 'Multi-System'].map(type => (
-                <label key={type} className={`flex-1 flex items-center justify-center gap-2 p-4 rounded-2xl border transition-all cursor-pointer ${systemType === type ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : 'bg-[#F9F9F9] border-black/5 text-black/40 hover:border-black/10'}`}>
-                  <input
-                    type="radio"
-                    name="systemType"
-                    value={type}
-                    checked={systemType === type}
-                    onChange={e => setSystemType(e.target.value)}
-                    className="hidden"
-                  />
-                  <span className="text-sm font-bold">{type}</span>
-                </label>
-              ))}
+          {category === 'INSTRUMENT' && (
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase font-bold text-black/40">System Type</label>
+              <div className="flex gap-4">
+                {['Single Type', 'Multi-System'].map(type => (
+                  <label key={type} className={`flex-1 flex items-center justify-center gap-2 p-4 rounded-2xl border transition-all cursor-pointer ${systemType === type ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : 'bg-[#F9F9F9] border-black/5 text-black/40 hover:border-black/10'}`}>
+                    <input
+                      type="radio"
+                      name="systemType"
+                      value={type}
+                      checked={systemType === type}
+                      onChange={e => {
+                        setSystemType(e.target.value);
+                        setInstrumentRows([]);
+                      }}
+                      className="hidden"
+                    />
+                    <span className="text-sm font-bold">{type}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="w-full h-px bg-black/5" />
 
